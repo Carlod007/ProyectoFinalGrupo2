@@ -76,6 +76,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/flecharetrocedera" />
 
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="238dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="101dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Ejemplo: LCOM7"
+        android:drawableEnd="@drawable/lupabusqueda24x24"
+        android:drawablePadding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
