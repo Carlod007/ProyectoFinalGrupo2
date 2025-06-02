@@ -18,7 +18,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_detalle_laboratorio)
-        tvCodigo = findViewById(R.id.tvCodigo)
+
         tvNombre = findViewById(R.id.tvNombre)
         tvPiso = findViewById(R.id.tvPiso)
         tvPabellon = findViewById(R.id.tvPabellon)
@@ -28,10 +28,10 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         val piso = intent.getIntExtra("piso", 0)
         val pabellon = intent.getStringExtra("pabellon")
 
-        tvCodigo.text = "Código: $codigo"
-        tvNombre.text = "Nombre: $nombre"
-        tvPiso.text = "Piso: $piso"
-        tvPabellon.text = "Pabellón: $pabellon"
+
+        tvNombre.text = nombre
+        tvPiso.text = "Piso $piso"
+        tvPabellon.text = "Pabellón $pabellon"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
