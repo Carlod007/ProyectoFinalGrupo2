@@ -9,9 +9,7 @@
     tools:context=".DetalleLaboratorioActivity"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,6 +69,15 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textColor="#2B60A3"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="16dp"
+                    android:textStyle="bold"/>
+
+                <TextView
                     android:id="@+id/tvPabellon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,22 +127,38 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="10dp"
-            android:text="Imagen del laboratorio"
+            android:text="Imagen del laboratorio:"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button3" />
 
-        <ImageView
-            android:id="@+id/imgSalon"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
             android:layout_width="187dp"
             android:layout_height="260dp"
             android:layout_marginTop="10dp"
-            android:scaleType="fitCenter"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:srcCompat="@drawable/logo_upn" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7">
 
+            <ImageView
+                android:id="@+id/imgSalon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_upn" />
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 
