@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -38,6 +40,12 @@ class BuscadorLabs : AppCompatActivity() {
         btnBack.setOnClickListener {
             finish()
         }
+
+        val autoComplete = findViewById<AutoCompleteTextView>(R.id.editTextCodigo)
+        val codigos = arrayOf("LCOM1", "LCOM2", "LCOM3", "AULA101", "AULA202")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, codigos)
+        autoComplete.setAdapter(adapter)
+
 
         binding.btnBuscar.setOnClickListener {
             val codigoIngresado = binding.editTextCodigo.text.toString().trim()
