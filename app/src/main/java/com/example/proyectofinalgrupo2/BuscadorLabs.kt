@@ -28,7 +28,6 @@ import kotlinx.coroutines.delay
 class BuscadorLabs : AppCompatActivity() {
 
     private lateinit var binding: ActivityBuscadorLabsBinding
-
     private lateinit var adapter: ArrayAdapter<String>
     private var searchJob: Job? = null
 
@@ -43,9 +42,7 @@ class BuscadorLabs : AppCompatActivity() {
             insets
         }
 
-
         setupAutoComplete()
-
 
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
@@ -121,7 +118,7 @@ class BuscadorLabs : AppCompatActivity() {
             }
         })
 
-        // 🚀 AQUI AGREGA EL LISTENER DE CLIC EN LAS SUGERENCIAS:
+        //Buscar en sugerencia
         binding.editTextCodigo.setOnItemClickListener { parent, view, position, id ->
             val itemSeleccionado = parent.getItemAtPosition(position).toString()
             val codigo = itemSeleccionado.split(" - ")[0]
@@ -149,7 +146,6 @@ class BuscadorLabs : AppCompatActivity() {
             }
         }
     }
-
 
     private suspend fun buscarSugerencias(texto: String) {
         try {
