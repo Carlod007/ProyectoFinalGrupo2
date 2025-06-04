@@ -78,6 +78,7 @@ class BuscadorLabs : AppCompatActivity() {
                         intent.putExtra("imgRecorrido", laboratorio.lab_imgrecorrido)
                         intent.putExtra("imgSalon",laboratorio.lab_imgsalon)
                         startActivity(intent)
+                        binding.editTextCodigo.setText("")
                     }else{
                         Toast.makeText(this@BuscadorLabs, "Laboratorio no encontrado", Toast.LENGTH_SHORT).show()
                     }
@@ -97,6 +98,12 @@ class BuscadorLabs : AppCompatActivity() {
         )
         binding.editTextCodigo.setAdapter(adapter)
         binding.editTextCodigo.threshold = 1
+        binding.editTextCodigo.dropDownVerticalOffset = 16
+        binding.editTextCodigo.post {
+            val anchoActual = binding.editTextCodigo.width
+            binding.editTextCodigo.dropDownWidth = 900
+            binding.editTextCodigo.dropDownHorizontalOffset = -((900 - anchoActual) / 2)
+        }
 
         binding.editTextCodigo.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -113,7 +120,36 @@ class BuscadorLabs : AppCompatActivity() {
                 }
             }
         })
+
+        // 🚀 AQUI AGREGA EL LISTENER DE CLIC EN LAS SUGERENCIAS:
+        binding.editTextCodigo.setOnItemClickListener { parent, view, position, id ->
+            val itemSeleccionado = parent.getItemAtPosition(position).toString()
+            val codigo = itemSeleccionado.split(" - ")[0]
+
+            lifecycleScope.launch {
+                try {
+                    val respuesta = RetrofitClient.webService.buscarLaboratoriosCodigo(codigo)
+                    if (respuesta.isSuccessful && respuesta.body() != null){
+                        val laboratorio = respuesta.body()!!
+                        val intent = Intent(this@BuscadorLabs, DetalleLaboratorioActivity::class.java)
+                        intent.putExtra("codigo", laboratorio.lab_codigo)
+                        intent.putExtra("nombre", laboratorio.lab_nombre)
+                        intent.putExtra("piso", laboratorio.lab_piso)
+                        intent.putExtra("pabellon", laboratorio.lab_pabellon)
+                        intent.putExtra("imgRecorrido", laboratorio.lab_imgrecorrido)
+                        intent.putExtra("imgSalon", laboratorio.lab_imgsalon)
+                        startActivity(intent)
+                        binding.editTextCodigo.setText("")
+                    } else {
+                        Toast.makeText(this@BuscadorLabs, "Laboratorio no encontrado", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this@BuscadorLabs, "Error de conexión", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
+
 
     private suspend fun buscarSugerencias(texto: String) {
         try {
