@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofinalgrupo2.databinding.ActivityMainBinding
@@ -28,5 +29,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BuscadorLabs::class.java)
             startActivity(intent)
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }

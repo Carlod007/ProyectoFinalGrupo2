@@ -18,7 +18,8 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
     private lateinit var tvPiso: TextView
     private lateinit var tvPabellon: TextView
     private lateinit var imgSalon: ImageView
-    //private lateinit var imgRecorrido: ImageView
+    private lateinit var btnMostrarRecorrido: Button
+
 
     private var codigoLaboratorio: String? = null
 
@@ -32,6 +33,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         tvPiso = findViewById(R.id.tvPiso)
         tvPabellon = findViewById(R.id.tvPabellon)
         imgSalon = findViewById(R.id.imgSalon)
+        btnMostrarRecorrido = findViewById(R.id.button3)
 
         //Obtener datos del Intent
         val codigo = intent.getStringExtra("codigo")
@@ -40,15 +42,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         val pabellon = intent.getStringExtra("pabellon")
         val imgSalonNombre = intent.getStringExtra("imgSalon")
         val imageViewSalon = findViewById<ImageView>(R.id.imgSalon)
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_recorrido)
-        val imgRecorrido = dialog.findViewById<ImageView>(R.id.imgRecorrido)
-
-
-        val buttonRecorrido = findViewById<Button>(R.id.button3)
-        buttonRecorrido.setOnClickListener {
-            mostrarDialogRecorrido()
-        }
+        val imgRecorridoNombre = intent.getStringExtra("imgRecorrido")
 
         //Asignar datos a vistas
         tvNombre.text = nombre
@@ -69,6 +63,9 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         } else {
             imageViewSalon.setImageResource(R.drawable.logo_upn)
         }
+        btnMostrarRecorrido.setOnClickListener {
+            mostrarDialogoRecorrido(imgRecorridoNombre)
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -76,28 +73,22 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
             insets
         }
     }
-    private fun mostrarDialogRecorrido() {
+    private fun mostrarDialogoRecorrido(imgRecorridoNombre: String?) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_recorrido)
+        val imageView = dialog.findViewById<ImageView>(R.id.imgRecorrido)
 
-        val imgRecorrido = dialog.findViewById<ImageView>(R.id.imgRecorrido)
-
-        // Aquí debes usar el código o nombre correcto para la imagen de recorrido
-        val codigoRecorrido = intent.getStringExtra("imgRecorrido")  // O el dato que uses
-
-        if (!codigoRecorrido.isNullOrEmpty()) {
-            val nombreSinExtension = codigoRecorrido.substringBeforeLast(".")
+        if (!imgRecorridoNombre.isNullOrEmpty()){
+            val nombreSinExtension = imgRecorridoNombre.substringBeforeLast(".")
             val resourceId = resources.getIdentifier(nombreSinExtension, "drawable", packageName)
             if (resourceId != 0) {
-                imgRecorrido.setImageResource(resourceId)
+                imageView.setImageResource(resourceId)
             } else {
-                imgRecorrido.setImageResource(R.drawable.logo_upn)
+                imageView.setImageResource(R.drawable.logo_upn)
             }
-        } else {
-            imgRecorrido.setImageResource(R.drawable.logo_upn)
+        }else{
+            imageView.setImageResource(R.drawable.logo_upn)
         }
         dialog.show()
     }
-
-
 }
