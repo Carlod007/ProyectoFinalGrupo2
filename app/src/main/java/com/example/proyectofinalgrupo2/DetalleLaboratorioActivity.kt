@@ -19,8 +19,6 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
     private lateinit var tvPabellon: TextView
     private lateinit var imgSalon: ImageView
     private lateinit var btnMostrarRecorrido: Button
-
-
     private var codigoLaboratorio: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

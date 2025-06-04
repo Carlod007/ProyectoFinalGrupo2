@@ -44,15 +44,12 @@ class BuscadorLabs : AppCompatActivity() {
 
         setupAutoComplete()
 
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
 
         binding.btnBuscar.setOnClickListener {
             var codigoIngresado = binding.editTextCodigo.text.toString().trim()
-
-
             if (codigoIngresado.contains(" - ")) {
                 codigoIngresado = codigoIngresado.split(" - ")[0]
             }
@@ -96,6 +93,7 @@ class BuscadorLabs : AppCompatActivity() {
         binding.editTextCodigo.setAdapter(adapter)
         binding.editTextCodigo.threshold = 1
         binding.editTextCodigo.dropDownVerticalOffset = 16
+
         binding.editTextCodigo.post {
             val anchoActual = binding.editTextCodigo.width
             binding.editTextCodigo.dropDownWidth = 900
