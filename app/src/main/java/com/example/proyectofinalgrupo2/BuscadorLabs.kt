@@ -3,6 +3,8 @@ package com.example.proyectofinalgrupo2
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -18,12 +20,17 @@ import androidx.lifecycle.lifecycleScope
 import com.example.proyectofinalgrupo2.databinding.ActivityBuscadorLabsBinding
 import com.example.proyectofinalgrupo2.model.Laboratorios
 import com.example.proyectofinalgrupo2.servicio.RetrofitClient
+import com.example.proyectofinalgrupo2.servicio.Sugerencia
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 
 class BuscadorLabs : AppCompatActivity() {
 
     private lateinit var binding: ActivityBuscadorLabsBinding
 
+    private lateinit var adapter: ArrayAdapter<String>
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +42,23 @@ class BuscadorLabs : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //Boton retroceso
+
+
+        setupAutoComplete()
+
+
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
             finish()
         }
 
-        val autoComplete = findViewById<AutoCompleteTextView>(R.id.editTextCodigo)
-        val codigos = arrayOf("LCOM1", "LCOM2", "LCOM3", "AULA101", "AULA202")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, codigos)
-        autoComplete.setAdapter(adapter)
-
-
         binding.btnBuscar.setOnClickListener {
-            val codigoIngresado = binding.editTextCodigo.text.toString().trim()
+            var codigoIngresado = binding.editTextCodigo.text.toString().trim()
+
+
+            if (codigoIngresado.contains(" - ")) {
+                codigoIngresado = codigoIngresado.split(" - ")[0]
+            }
 
             if(codigoIngresado.isEmpty()){
                 Toast.makeText(this, "ingresar código", Toast.LENGTH_SHORT).show()
@@ -75,6 +85,54 @@ class BuscadorLabs : AppCompatActivity() {
                     Toast.makeText(this@BuscadorLabs, "Error de conexión", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+
+    private fun setupAutoComplete() {
+        adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            mutableListOf<String>()
+        )
+        binding.editTextCodigo.setAdapter(adapter)
+        binding.editTextCodigo.threshold = 1
+
+        binding.editTextCodigo.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val texto = s.toString().trim()
+                if (texto.isNotEmpty() && texto.length >= 1) {
+                    searchJob?.cancel()
+                    searchJob = lifecycleScope.launch {
+                        delay(300)
+                        buscarSugerencias(texto)
+                    }
+                }
+            }
+        })
+    }
+
+    private suspend fun buscarSugerencias(texto: String) {
+        try {
+            val response = RetrofitClient.webService.obtenerSugerencias(texto)
+            if (response.isSuccessful) {
+                val sugerencias = response.body() ?: emptyList()
+                updateSugerencias(sugerencias)
+            }
+        } catch (e: Exception) {
+            
+        }
+    }
+
+    private fun updateSugerencias(sugerencias: List<Sugerencia>) {
+        runOnUiThread {
+            val listaSugerencias = sugerencias.map { "${it.lab_codigo} - ${it.lab_nombre}" }
+            adapter.clear()
+            adapter.addAll(listaSugerencias)
+            adapter.notifyDataSetChanged()
         }
     }
 }
