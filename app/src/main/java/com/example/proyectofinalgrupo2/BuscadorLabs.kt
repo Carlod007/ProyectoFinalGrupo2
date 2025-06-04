@@ -155,7 +155,7 @@ class BuscadorLabs : AppCompatActivity() {
                 updateSugerencias(sugerencias)
             }
         } catch (e: Exception) {
-            
+            e.printStackTrace()
         }
     }
 
