@@ -46,11 +46,11 @@
         android:id="@+id/imageView2"
         android:layout_width="263dp"
         android:layout_height="432dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/croquis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -105,6 +105,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:srcCompat="@drawable/lupabusqueda24x24" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="4dp"
+        android:text="Ingrese mínimo dos caracteres para iniciar la búsqueda"
+        android:textColor="#9B9B9B"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCodigo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
