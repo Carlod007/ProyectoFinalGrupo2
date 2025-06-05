@@ -7,5 +7,6 @@ data class Laboratorios(
     var lab_piso: Int,
     var lab_pabellon: String,
     var lab_imgsalon: String,
-    var lab_imgrecorrido: String
+    var lab_imgrecorrido: String,
+    var lab_descripcion: String
 )

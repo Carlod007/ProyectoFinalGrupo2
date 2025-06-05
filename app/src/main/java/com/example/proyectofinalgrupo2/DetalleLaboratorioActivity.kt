@@ -41,6 +41,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         val imgSalonNombre = intent.getStringExtra("imgSalon")
         val imageViewSalon = findViewById<ImageView>(R.id.imgSalon)
         val imgRecorridoNombre = intent.getStringExtra("imgRecorrido")
+        val descripcionRecorrido = intent.getStringExtra("descripcion")
 
         //Asignar datos a vistas
         tvNombre.text = nombre
@@ -62,7 +63,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
             imageViewSalon.setImageResource(R.drawable.logo_upn)
         }
         btnMostrarRecorrido.setOnClickListener {
-            mostrarDialogoRecorrido(imgRecorridoNombre)
+            mostrarDialogoRecorrido(imgRecorridoNombre, descripcionRecorrido)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -71,10 +72,12 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
             insets
         }
     }
-    private fun mostrarDialogoRecorrido(imgRecorridoNombre: String?) {
+    private fun mostrarDialogoRecorrido(imgRecorridoNombre: String?, descripcionRecorrido: String?) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_recorrido)
+
         val imageView = dialog.findViewById<ImageView>(R.id.imgRecorrido)
+        val tvDescripcion = dialog.findViewById<TextView>(R.id.tvDescripcionRecorrido)
 
         if (!imgRecorridoNombre.isNullOrEmpty()){
             val nombreSinExtension = imgRecorridoNombre.substringBeforeLast(".")
@@ -87,6 +90,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         }else{
             imageView.setImageResource(R.drawable.logo_upn)
         }
+        tvDescripcion.text = descripcionRecorrido ?: "Descripción no disponible"
         dialog.show()
     }
 }

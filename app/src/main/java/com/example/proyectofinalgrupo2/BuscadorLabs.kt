@@ -71,6 +71,7 @@ class BuscadorLabs : AppCompatActivity() {
                         intent.putExtra("pabellon",laboratorio.lab_pabellon)
                         intent.putExtra("imgRecorrido", laboratorio.lab_imgrecorrido)
                         intent.putExtra("imgSalon",laboratorio.lab_imgsalon)
+                        intent.putExtra("descripcion",laboratorio.lab_descripcion)
                         startActivity(intent)
                         binding.editTextCodigo.setText("")
                     }else{
@@ -133,6 +134,7 @@ class BuscadorLabs : AppCompatActivity() {
                         intent.putExtra("pabellon", laboratorio.lab_pabellon)
                         intent.putExtra("imgRecorrido", laboratorio.lab_imgrecorrido)
                         intent.putExtra("imgSalon", laboratorio.lab_imgsalon)
+                        intent.putExtra("descripcion", laboratorio.lab_descripcion)
                         startActivity(intent)
                         binding.editTextCodigo.setText("")
                     } else {
