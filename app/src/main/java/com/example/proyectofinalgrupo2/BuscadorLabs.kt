@@ -31,6 +31,8 @@ class BuscadorLabs : AppCompatActivity() {
     private lateinit var adapter: ArrayAdapter<String>
     private var searchJob: Job? = null
 
+    private val minimocaracteres = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -92,7 +94,7 @@ class BuscadorLabs : AppCompatActivity() {
             mutableListOf<String>()
         )
         binding.editTextCodigo.setAdapter(adapter)
-        binding.editTextCodigo.threshold = 1
+        binding.editTextCodigo.threshold = minimocaracteres
         binding.editTextCodigo.dropDownVerticalOffset = 16
 
         binding.editTextCodigo.post {
@@ -107,12 +109,15 @@ class BuscadorLabs : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val texto = s.toString().trim()
-                if (texto.isNotEmpty() && texto.length >= 1) {
+                if (texto.length >= minimocaracteres) {
                     searchJob?.cancel()
                     searchJob = lifecycleScope.launch {
                         delay(300)
                         buscarSugerencias(texto)
                     }
+                }else{
+                    adapter.clear()
+                    adapter.notifyDataSetChanged()
                 }
             }
         })
