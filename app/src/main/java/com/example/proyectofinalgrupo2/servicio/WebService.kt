@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 object AppConstantes{
-    const val BASE_URL = "http://192.168.18.133:5000"
+    const val BASE_URL = "http://192.168.18.155:5000"
 }
 
 // Data class para las sugerencias
