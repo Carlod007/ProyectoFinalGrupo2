@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -30,6 +31,7 @@ class BuscadorLabs : AppCompatActivity() {
     private lateinit var binding: ActivityBuscadorLabsBinding
     private lateinit var adapter: ArrayAdapter<String>
     private var searchJob: Job? = null
+    private var tipoUsuario: String? = null
 
     private val minimocaracteres = 1
 
@@ -43,6 +45,7 @@ class BuscadorLabs : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        tipoUsuario = intent.getStringExtra("tipoUsuario")
 
         setupAutoComplete()
 
@@ -102,6 +105,13 @@ class BuscadorLabs : AppCompatActivity() {
             binding.editTextCodigo.dropDownWidth = 900
             binding.editTextCodigo.dropDownHorizontalOffset = -((900 - anchoActual) / 2)
         }
+
+        if (tipoUsuario == "admin") {
+            binding.btnSettings.visibility = View.VISIBLE
+        } else {
+            binding.btnSettings.visibility = View.GONE
+        }
+
 
         binding.editTextCodigo.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

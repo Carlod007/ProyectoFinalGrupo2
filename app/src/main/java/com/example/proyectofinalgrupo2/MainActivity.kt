@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
         val btnIngresar = findViewById<Button>(R.id.btnIngresar)
         btnIngresar.setOnClickListener {
-            val intent = Intent(this, BuscadorLabs::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
