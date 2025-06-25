@@ -53,6 +53,12 @@ class BuscadorLabs : AppCompatActivity() {
             finish()
         }
 
+        binding.btnFavoritos.setOnClickListener {
+            val intent = Intent(this, FavoritosActivity::class.java)
+            startActivity(intent)
+        }
+
+
         binding.btnBuscar.setOnClickListener {
             var codigoIngresado = binding.editTextCodigo.text.toString().trim()
             if (codigoIngresado.contains(" - ")) {

@@ -4,12 +4,16 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.proyectofinalgrupo2.model.Laboratorios
+import com.example.proyectofinalgrupo2.servicio.FavoritosManager
 
 class DetalleLaboratorioActivity : AppCompatActivity() {
 
@@ -19,6 +23,7 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
     private lateinit var tvPabellon: TextView
     private lateinit var imgSalon: ImageView
     private lateinit var btnMostrarRecorrido: Button
+    private lateinit var btnAgregarFavorito: ImageButton
     private var codigoLaboratorio: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +47,25 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         val imageViewSalon = findViewById<ImageView>(R.id.imgSalon)
         val imgRecorridoNombre = intent.getStringExtra("imgRecorrido")
         val descripcionRecorrido = intent.getStringExtra("descripcion")
+        val usuario = intent.getStringExtra("usuario") ?: "default"
+
+
+        val btnFavorito = findViewById<ImageButton>(R.id.btnAgregarFavorito)
+        btnFavorito.setOnClickListener {
+            val lab = Laboratorios(
+                lab_id = 0,
+                lab_codigo = codigo!!,
+                lab_nombre = nombre!!,
+                lab_piso = piso,
+                lab_pabellon = pabellon!!,
+                lab_imgsalon = imgSalonNombre ?: "",
+                lab_imgrecorrido = imgRecorridoNombre ?: "",
+                lab_descripcion = descripcionRecorrido ?: ""
+            )
+            FavoritosManager.agregarFavorito(this, usuario, lab)
+            Toast.makeText(this, "Agregado a favoritos", Toast.LENGTH_SHORT).show()
+        }
+
 
         //Asignar datos a vistas
         tvNombre.text = nombre
