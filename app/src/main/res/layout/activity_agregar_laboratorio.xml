@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFC107"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
+
+        <EditText
+            android:id="@+id/etCodigo"
+            android:hint="Código"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="12dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:hint="Nombre"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="12dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etPiso"
+            android:hint="Piso"
+            android:inputType="number"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="12dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etPabellon"
+            android:hint="Pabellón"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="12dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etImgSalon"
+            android:hint="Imagen salón (ej: salon_lcom9.jpg)"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="12dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etImgRecorrido"
+            android:hint="Imagen recorrido (ej: croquis_lcom9.png)"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="12dp"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:hint="Descripción"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top"
+            android:background="@drawable/custom_input"
+            android:layout_marginBottom="16dp"
+            android:padding="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:text="Agregar"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/black"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

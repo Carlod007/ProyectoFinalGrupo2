@@ -34,6 +34,12 @@ interface WebService {
     suspend fun loginUsuario(
         @Body credenciales: CredencialesRequest
     ): Response<UsuarioResponse>
+
+    @POST("/laboratorios")
+    suspend fun agregarLaboratorio(
+        @Body laboratorio: Laboratorios
+    ): Response<Void>
+
 }
 
 object RetrofitClient{

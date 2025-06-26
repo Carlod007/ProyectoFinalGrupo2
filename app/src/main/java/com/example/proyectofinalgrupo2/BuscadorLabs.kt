@@ -45,6 +45,7 @@ class BuscadorLabs : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         tipoUsuario = intent.getStringExtra("tipoUsuario")
 
         setupAutoComplete()
@@ -118,6 +119,10 @@ class BuscadorLabs : AppCompatActivity() {
             binding.btnSettings.visibility = View.GONE
         }
 
+        binding.btnSettings.setOnClickListener {
+            val intent = Intent(this, AgregarLaboratorioActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.editTextCodigo.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
