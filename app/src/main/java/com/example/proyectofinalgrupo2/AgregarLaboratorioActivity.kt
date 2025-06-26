@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -24,6 +25,8 @@ class AgregarLaboratorioActivity : AppCompatActivity() {
     private lateinit var etImgRecorrido: EditText
     private lateinit var etDescripcion: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnEliminar: Button
+    private lateinit var btnEditar: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +46,67 @@ class AgregarLaboratorioActivity : AppCompatActivity() {
         etImgRecorrido = findViewById(R.id.etImgRecorrido)
         etDescripcion = findViewById(R.id.etDescripcion)
         btnGuardar = findViewById(R.id.btnGuardar)
+        btnEliminar = findViewById(R.id.btnEliminar)
+        btnEditar = findViewById(R.id.btnEditar)
 
         btnGuardar.setOnClickListener {
             agregarLaboratorio()
         }
 
+        btnEliminar.setOnClickListener {
+            val codigo = etCodigo.text.toString()
+            if (codigo.isEmpty()) {
+                Toast.makeText(this, "Ingresa el código a eliminar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            AlertDialog.Builder(this)
+                .setTitle("Confirmar Eliminación")
+                .setMessage("¿Estás seguro de eliminar este laboratorio?")
+                .setPositiveButton("Sí") { _, _ ->
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val response = RetrofitClient.webService.eliminarLaboratorio(codigo)
+                        runOnUiThread {
+                            if (response.isSuccessful) {
+                                Toast.makeText(this@AgregarLaboratorioActivity, "Laboratorio eliminado", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(this@AgregarLaboratorioActivity, "Error al eliminar", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+                .setNegativeButton("No", null)
+                .show()
+        }
+
+        btnEditar.setOnClickListener {
+            val codigo = etCodigo.text.toString()
+            if (codigo.isEmpty()) {
+                Toast.makeText(this, "Ingresa el código a editar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val lab = Laboratorios(
+                lab_id = 0,
+                lab_codigo = codigo,
+                lab_nombre = etNombre.text.toString(),
+                lab_piso = etPiso.text.toString().toIntOrNull() ?: 0,
+                lab_pabellon = etPabellon.text.toString(),
+                lab_imgsalon = etImgSalon.text.toString(),
+                lab_imgrecorrido = etImgRecorrido.text.toString(),
+                lab_descripcion = etDescripcion.text.toString()
+            )
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = RetrofitClient.webService.editarLaboratorio(codigo, lab)
+                runOnUiThread {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@AgregarLaboratorioActivity, "Laboratorio actualizado", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@AgregarLaboratorioActivity, "Error al actualizar", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun agregarLaboratorio() {
@@ -74,4 +133,6 @@ class AgregarLaboratorioActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

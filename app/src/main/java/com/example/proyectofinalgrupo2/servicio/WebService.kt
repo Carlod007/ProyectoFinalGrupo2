@@ -7,8 +7,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 object AppConstantes{
     const val BASE_URL = "http://192.168.18.155:5000"
@@ -40,6 +43,14 @@ interface WebService {
         @Body laboratorio: Laboratorios
     ): Response<Void>
 
+    @DELETE("/laboratorios/{codigo}")
+    suspend fun eliminarLaboratorio(@Path("codigo") codigo: String): Response<Void>
+
+    @PUT("/laboratorios/{codigo}")
+    suspend fun editarLaboratorio(
+        @Path("codigo") codigo: String,
+        @Body laboratorio: Laboratorios
+    ): Response<Void>
 }
 
 object RetrofitClient{
