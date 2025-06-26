@@ -187,7 +187,7 @@ class AgregarLaboratorioActivity : AppCompatActivity() {
         val descripcion = etDescripcion.text.toString().trim()
 
         if (codigo.isEmpty() || nombre.isEmpty() || piso.isEmpty() || pabellon.isEmpty() || imgSalon.isEmpty() || imgRecorrido.isEmpty() || descripcion.isEmpty()) {
-            Toast.makeText(this, "Todos los campos son obligatorios para agregar un laboratorio", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
