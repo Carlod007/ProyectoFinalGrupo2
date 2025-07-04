@@ -12,10 +12,15 @@ object FavoritosManager {
     fun agregarFavorito(context: Context, usuario: String, lab: Laboratorios) {
         val prefs = getPrefs(context, usuario)
         val favoritos = obtenerFavoritos(context, usuario).toMutableList()
-        favoritos.add(lab)
-        val json = Gson().toJson(favoritos)
-        prefs.edit().putString("favoritos", json).apply()
+
+        // Evitar duplicados:
+        if (favoritos.none { it.lab_codigo == lab.lab_codigo }) {
+            favoritos.add(lab)
+            val json = Gson().toJson(favoritos)
+            prefs.edit().putString("favoritos", json).apply()
+        }
     }
+
 
     fun obtenerFavoritos(context: Context, usuario: String): List<Laboratorios> {
         val prefs = getPrefs(context, usuario)

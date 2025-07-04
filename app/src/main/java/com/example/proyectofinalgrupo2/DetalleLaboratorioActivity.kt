@@ -3,6 +3,7 @@ package com.example.proyectofinalgrupo2
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -48,22 +49,26 @@ class DetalleLaboratorioActivity : AppCompatActivity() {
         val imgRecorridoNombre = intent.getStringExtra("imgRecorrido")
         val descripcionRecorrido = intent.getStringExtra("descripcion")
         val usuario = intent.getStringExtra("usuario") ?: "default"
-
-
         val btnFavorito = findViewById<ImageButton>(R.id.btnAgregarFavorito)
-        btnFavorito.setOnClickListener {
-            val lab = Laboratorios(
-                lab_id = 0,
-                lab_codigo = codigo!!,
-                lab_nombre = nombre!!,
-                lab_piso = piso,
-                lab_pabellon = pabellon!!,
-                lab_imgsalon = imgSalonNombre ?: "",
-                lab_imgrecorrido = imgRecorridoNombre ?: "",
-                lab_descripcion = descripcionRecorrido ?: ""
-            )
-            FavoritosManager.agregarFavorito(this, usuario, lab)
-            Toast.makeText(this, "Agregado a favoritos", Toast.LENGTH_SHORT).show()
+
+        if (usuario == "admin") {
+            btnFavorito.visibility = View.GONE
+        } else {
+            btnFavorito.visibility = View.VISIBLE
+            btnFavorito.setOnClickListener {
+                val lab = Laboratorios(
+                    lab_id = 0,
+                    lab_codigo = codigo!!,
+                    lab_nombre = nombre!!,
+                    lab_piso = piso,
+                    lab_pabellon = pabellon!!,
+                    lab_imgsalon = imgSalonNombre ?: "",
+                    lab_imgrecorrido = imgRecorridoNombre ?: "",
+                    lab_descripcion = descripcionRecorrido ?: ""
+                )
+                FavoritosManager.agregarFavorito(this, usuario, lab)
+                Toast.makeText(this, "Agregado a favoritos", Toast.LENGTH_SHORT).show()
+            }
         }
 
 

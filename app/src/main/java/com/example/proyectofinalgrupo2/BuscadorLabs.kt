@@ -56,6 +56,7 @@ class BuscadorLabs : AppCompatActivity() {
 
         binding.btnFavoritos.setOnClickListener {
             val intent = Intent(this, FavoritosActivity::class.java)
+            intent.putExtra("usuario", tipoUsuario)
             startActivity(intent)
         }
 
@@ -84,6 +85,7 @@ class BuscadorLabs : AppCompatActivity() {
                         intent.putExtra("imgRecorrido", laboratorio.lab_imgrecorrido)
                         intent.putExtra("imgSalon",laboratorio.lab_imgsalon)
                         intent.putExtra("descripcion",laboratorio.lab_descripcion)
+                        intent.putExtra("usuario", tipoUsuario)
                         startActivity(intent)
                         binding.editTextCodigo.setText("")
                     }else{
@@ -115,9 +117,13 @@ class BuscadorLabs : AppCompatActivity() {
 
         if (tipoUsuario == "admin") {
             binding.btnSettings.visibility = View.VISIBLE
+            binding.btnFavoritos.visibility = View.GONE
         } else {
             binding.btnSettings.visibility = View.GONE
+            binding.btnFavoritos.visibility = View.VISIBLE
         }
+
+
 
         binding.btnSettings.setOnClickListener {
             val intent = Intent(this, AgregarLaboratorioActivity::class.java)
@@ -161,6 +167,7 @@ class BuscadorLabs : AppCompatActivity() {
                         intent.putExtra("imgRecorrido", laboratorio.lab_imgrecorrido)
                         intent.putExtra("imgSalon", laboratorio.lab_imgsalon)
                         intent.putExtra("descripcion", laboratorio.lab_descripcion)
+                        intent.putExtra("usuario", tipoUsuario)
                         startActivity(intent)
                         binding.editTextCodigo.setText("")
                     } else {
